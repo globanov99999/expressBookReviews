@@ -6,19 +6,15 @@ const regd_users = express.Router();
 let users = [];
 
 const isValid = (username) => {
-    existed_users = users.filter((user) => user.username === username);
-    if (existed_users.length === 0) {
-        return false
-    }
-    return true
+    let existed_users = users.filter((user) => user.username === username);
+    return existed_users.length !== 0;
+
 }
 
 const authenticatedUser = (username, password) => {
-    auth_users = users.filter((user) => (user.username === username) && (user.password === password));
-    if (auth_users.length === 0) {
-        return false
-    }
-    return true
+    let auth_users = users.filter((user) => (user.username === username) && (user.password === password));
+    return auth_users.length !== 0;
+
 }
 
 regd_users.post("/login", (req, res) => {
@@ -50,16 +46,16 @@ regd_users.post("/login", (req, res) => {
 
 
 regd_users.put("/auth/review/:isbn", (req, res) => {
-    const username = req.session.username;
-    const review = req.body.review;
-    const isbn = req.params.isbn;
+    let username = req.session.username;
+    let review = req.body.review;
+    let isbn = req.params.isbn;
     books[isbn].reviews[username] = review
     res.send("Review posted!")
 });
 
 regd_users.delete("/auth/review/:isbn", (req, res) => {
-    const username = req.session.username;
-    const isbn = req.params.isbn;
+    let username = req.session.username;
+    let isbn = req.params.isbn;
     let map = new Map(Object.entries(books[isbn].reviews));
     if (map.size && map.has(username)) {
         map.delete(username)
