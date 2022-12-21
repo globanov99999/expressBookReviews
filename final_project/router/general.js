@@ -23,46 +23,46 @@ public_users.post("/register", (req,res) => {
 
 
 public_users.get('/',function (req, res) {
-    let myPromise = new Promise((resolve) => {
+    let myOwnPromise = new Promise((resolve) => {
         resolve(JSON.stringify({books},null,4))
     })
-    myPromise.then((data) => {
+    myOwnPromise.then((data) => {
         res.send(data);
     })
 });
 
 
 public_users.get('/isbn/:isbn',function (req, res) {
-    let myPromise = new Promise((resolve) => {
+    let myOwnPromise = new Promise((resolve) => {
         let isbn = req.params.isbn;
         let book = books[parseInt(isbn)]
         resolve(book)
     })
-    myPromise.then((book) => {
+    myOwnPromise.then((book) => {
         res.send(book);
     })
  });
   
 
 public_users.get('/author/:author',function (req, res) {
-    let myPromise = new Promise((resolve,) => {
+    let myOwnPromise = new Promise((resolve,) => {
         let author = req.params.author;
         let filtered_by_author = Object.values(books).filter((book) => book.author === author);
         resolve(filtered_by_author)
     })
-    myPromise.then((filtered_by_author) => {
+    myOwnPromise.then((filtered_by_author) => {
         res.send(filtered_by_author);
     })
 });
 
 
 public_users.get('/title/:title',function (req, res) {
-    let myPromise = new Promise((resolve,) => {
+    let myOwnPromise = new Promise((resolve,) => {
         const title = req.params.title;
         let filtered_by_title = Object.values(books).filter((book) => book.title === title);
         resolve(filtered_by_title)
     })
-    myPromise.then((filtered_by_title) => {
+    myOwnPromise.then((filtered_by_title) => {
         res.send(filtered_by_title);
     })
 });
